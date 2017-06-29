@@ -65,14 +65,14 @@ func main() {
 	dec.Decode(&d)
 	var count = 0
 	for _, json := range d {
-		// 日付文字列パース
+		// 日付の文字列をパースする
 		var ts = strings.Replace(json.CreatedAt, "T", " ", 1)
 		ts = strings.Replace(ts, "Z", " UTC", 1)
-		// JST置換
+		// UTCをJSTに置換する
 		t, _ := time.Parse("2006-01-02 15:04:05 MST", ts)
 		jst := time.FixedZone("Asia/Tokyo", 9*60*60)
 		tJst := t.In(jst)
-		// 日付比較
+		// 今日の日付とパースした日付を比較する
 		nowJst := time.Now()
 		if tJst.Format("2006-01-02") == nowJst.Format("2006-01-02") &&
 			json.Type == "PushEvent" {

@@ -18,7 +18,7 @@ func main() {
 	cl := github.NewClient(tc)
 
 	// list all repositories for the authenticated user
-	repos, _, err := client.Repositories.List(ctx, "{...UserName...}", nil)
+	repos, _, err := cl.Repositories.List(ctx, "{...UserName...}", nil)
 	if err != nil {
 		log.Panic(err)
 	}

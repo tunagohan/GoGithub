@@ -56,8 +56,8 @@ func main() {
 	ownername := getword() + "/events"
 	url := "https://api.github.com/users/" + ownername
 	req, _ := http.NewRequest("GET", url, nil)
-	client := new(http.Client)
-	resp, _ := client.Do(req)
+	cl := new(http.Client)
+	resp, _ := cl.Do(req)
 	defer resp.Body.Close()
 
 	dec := json.NewDecoder(resp.Body)
@@ -83,8 +83,8 @@ func main() {
 }
 
 func getword() (stringReturned string) {
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	stringReturned = scanner.Text()
+	sc := bufio.NewScanner(os.Stdin)
+	sc.Scan()
+	stringReturned = sc.Text()
 	return
 }

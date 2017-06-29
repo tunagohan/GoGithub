@@ -11,21 +11,21 @@ import (
 )
 
 type actor struct {
-	Id         int
+	ID         int
 	Login      string
-	GravatarId string
-	Url        string
-	AvatarUrl  string
+	GravatarID string
+	URL        string
+	AvatarURL  string
 }
 
 type repo struct {
-	Id   int
+	ID   int
 	Name string
-	Url  string `json:"url"`
+	URL  string `json:"url"`
 }
 
 type payload struct {
-	PushId       int
+	PushID       int
 	Size         int
 	DistinctSize int
 	Ref          string
@@ -35,14 +35,14 @@ type payload struct {
 }
 
 type commits struct {
-	Sha      string
+	SHA      string
 	Message  string
 	Distinct string
-	Url      string
+	URL      string
 }
 
 type data struct {
-	Id        string  `json:"id"`
+	ID        string  `json:"id"`
 	Type      string  `json:"type"`
 	Actor     actor   `json:"actor"`
 	Repo      repo    `json:"repo"`

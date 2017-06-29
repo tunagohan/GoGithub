@@ -55,7 +55,6 @@ func main() {
 	fmt.Print("UserName >>> ")
 	ownername := getword() + "/events"
 	url := "https://api.github.com/users/" + ownername
-	fmt.Println(url)
 	req, _ := http.NewRequest("GET", url, nil)
 	client := new(http.Client)
 	resp, _ := client.Do(req)

@@ -10,11 +10,10 @@ Githubのアクセストークンを取得する
 
 ## チュートリアル
 
-`RepoList.go`の中にある
-"...Your Access Token..."
-の部分を先ほどコピーしたアクセストークンに置き換えて
-
-`go run RepoList.go`してください。
+`RepoList.go`の中にある  
+"...Your Access Token..."  
+の部分を先ほどコピーしたアクセストークンに置き換えて  
+`go run RepoList.go`してください。  
 
 自分のリポジトリのListが全て表示されると思います。
 

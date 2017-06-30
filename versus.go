@@ -10,43 +10,43 @@ import (
 	"time"
 )
 
-type actor struct {
-	Id         int
+type Actor struct {
+	ID         int
 	Login      string
-	GravatarId string
-	Url        string
-	AvatarUrl  string
+	GravatarID string
+	URL        string
+	AvatarURL  string
 }
 
-type repo struct {
-	Id   int
+type Repo struct {
+	ID   int
 	Name string
-	Url  string `json:"url"`
+	URL  string `json:"url"`
 }
 
-type payload struct {
-	PushId       int
+type Payload struct {
+	PushID       int
 	Size         int
 	DistinctSize int
 	Ref          string
 	Head         string
 	Before       string
-	Commits      []commits
+	Commits      []Commits
 }
 
-type commits struct {
-	Sha      string
+type Commits struct {
+	SHA      string
 	Message  string
 	Distinct string
-	Url      string
+	URL      string
 }
 
-type data struct {
-	Id        string  `json:"id"`
+type Data struct {
+	ID        string  `json:"id"`
 	Type      string  `json:"type"`
-	Actor     actor   `json:"actor"`
-	Repo      repo    `json:"repo"`
-	PayLoad   payload `json:"payload"`
+	Actor     Actor   `json:"actor"`
+	Repo      Repo    `json:"repo"`
+	PayLoad   Payload `json:"payload"`
 	Public    string  `json:"public"`
 	CreatedAt string  `json:"created_at"`
 }
@@ -73,7 +73,7 @@ func main() {
 }
 
 //commitCount is counts the number of commits .
-func commitCount() (coutn int) {
+func commitCount() (commitTotal int) {
 	player := getWord() + "/events"
 	url := "https://api.github.com/users/" + player
 	req, _ := http.NewRequest("GET", url, nil)
@@ -81,7 +81,7 @@ func commitCount() (coutn int) {
 	resp, _ := client.Do(req)
 	defer resp.Body.Close()
 	dec := json.NewDecoder(resp.Body)
-	var d []data
+	var d []Data
 	dec.Decode(&d)
 	var count = 0
 	for _, json := range d {

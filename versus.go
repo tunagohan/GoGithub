@@ -53,28 +53,28 @@ type Data struct {
 
 func main() {
 	fmt.Println("ユーザー名を入力してください")
-	fmt.Print("Player1: ")
+	fmt.Print("YourName: ")
 	player1 := commitCount()
-	fmt.Print("Player2: ")
+	fmt.Print("Player: ")
 	player2 := commitCount()
 	if player1 > player2 {
 		fmt.Println("Win : +", player1-player2)
-		fmt.Printf("MyCommits:%d\nPlayer2 Commits:%d", player1, player2)
+		fmt.Printf("MyCommits: %d\nPlayer Commits: %d", player1, player2)
 	}
 	if player1 < player2 {
-		fmt.Println("player1 Lose : -", player2-player1)
-		fmt.Printf("MyCommits:%d\nPlayer2 Commits:%d", player1, player2)
+		fmt.Println("Lose : -", player2-player1)
+		fmt.Printf("MyCommits: %d\nPlayer Commits: %d", player1, player2)
 	}
 	if player1 == player2 {
 		fmt.Println("DROW")
-		fmt.Printf("MyCommits:%d\nPlayer2 Commits:%d", player1, player2)
+		fmt.Printf("MyCommits: %d\nPlayer Commits: %d", player1, player2)
 	}
 
 }
 
-//commitCount is counts the number of commits .
+// commitCount is counts the number of commits .
 func commitCount() (commitTotal int) {
-	player := getWord() + "/events"
+	player := getUserName() + "/events"
 	url := "https://api.github.com/users/" + player
 	req, _ := http.NewRequest("GET", url, nil)
 	client := new(http.Client)
@@ -102,8 +102,8 @@ func commitCount() (commitTotal int) {
 	return count
 }
 
-// getWord is type text .
-func getWord() (stringReturned string) {
+// getWord is type text UserName .
+func getUserName() (stringReturned string) {
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	stringReturned = scanner.Text()

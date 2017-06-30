@@ -39,7 +39,7 @@ func main() {
 go run RepoList.go
 ```
 
-自分のリポジトリのListが全て表示されると思います。
+指定したリポジトリのListが全て表示されると思います。
 
 実際はJSON形式で取得しているので上手く整形できる方お願いします。
 
@@ -49,4 +49,4 @@ go run RepoList.go
 go get github.com/google/go-github
 ```
 
-をして見てください。
+をしてみてください。

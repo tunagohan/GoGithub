@@ -11,21 +11,21 @@ import (
 )
 
 type actor struct {
-	Id         int
+	ID         int
 	Login      string
-	GravatarId string
-	Url        string
-	AvatarUrl  string
+	GravatarID string
+	URL        string
+	AvatarURL  string
 }
 
 type repo struct {
-	Id   int
+	ID   int
 	Name string
-	Url  string `json:"url"`
+	URL  string `json:"url"`
 }
 
 type payload struct {
-	PushId       int
+	PushID       int
 	Size         int
 	DistinctSize int
 	Ref          string
@@ -35,14 +35,14 @@ type payload struct {
 }
 
 type commits struct {
-	Sha      string
+	SHA      string
 	Message  string
 	Distinct string
-	Url      string
+	URL      string
 }
 
 type data struct {
-	Id        string  `json:"id"`
+	ID        string  `json:"id"`
 	Type      string  `json:"type"`
 	Actor     actor   `json:"actor"`
 	Repo      repo    `json:"repo"`
@@ -56,8 +56,8 @@ func main() {
 	ownername := getword() + "/events"
 	url := "https://api.github.com/users/" + ownername
 	req, _ := http.NewRequest("GET", url, nil)
-	client := new(http.Client)
-	resp, _ := client.Do(req)
+	cl := new(http.Client)
+	resp, _ := cl.Do(req)
 	defer resp.Body.Close()
 
 	dec := json.NewDecoder(resp.Body)
@@ -65,14 +65,14 @@ func main() {
 	dec.Decode(&d)
 	var count = 0
 	for _, json := range d {
-		// 日付文字列パース
+		// 日付の文字列をパースする
 		var ts = strings.Replace(json.CreatedAt, "T", " ", 1)
 		ts = strings.Replace(ts, "Z", " UTC", 1)
-		// JST置換
+		// UTCをJSTに置換する
 		t, _ := time.Parse("2006-01-02 15:04:05 MST", ts)
 		jst := time.FixedZone("Asia/Tokyo", 9*60*60)
 		tJst := t.In(jst)
-		// 日付比較
+		// 今日の日付とパースした日付を比較する
 		nowJst := time.Now()
 		if tJst.Format("2006-01-02") == nowJst.Format("2006-01-02") &&
 			json.Type == "PushEvent" {
@@ -83,8 +83,8 @@ func main() {
 }
 
 func getword() (stringReturned string) {
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	stringReturned = scanner.Text()
+	sc := bufio.NewScanner(os.Stdin)
+	sc.Scan()
+	stringReturned = sc.Text()
 	return
 }

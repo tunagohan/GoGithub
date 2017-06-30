@@ -2,9 +2,7 @@ package main
 
 import (
 	"context"
-
 	"log"
-
 	"fmt"
 
 	"github.com/google/go-github/github"
@@ -14,17 +12,15 @@ import (
 func main() {
 	ctx := context.Background()
 	ts := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: "{...Your Access Token...}"},
+		&oauth2.Token{ AccessToken: "{...Your Access Token...}" },
 	)
 	tc := oauth2.NewClient(ctx, ts)
-
-	client := github.NewClient(tc)
+	cl := github.NewClient(tc)
 
 	// list all repositories for the authenticated user
-	repos, _, err := client.Repositories.ListCommits(ctx, "{...UserName...}", "{...Repository Name...}", nil)
+	repos, _, err := cl.Repositories.ListCommits(ctx, "{...UserName...}", "{...Repository Name...}", nil)
 	if err != nil {
-		log.Panic(err)
+		log.Print(err)
 	}
-
 	fmt.Println(len(repos))
 }

@@ -10,6 +10,16 @@ import (
 	"time"
 )
 
+type Data struct {
+	ID        string  `json:"id"`
+	Type      string  `json:"type"`
+	Actor     Actor   `json:"actor"`
+	Repo      Repo    `json:"repo"`
+	PayLoad   Payload `json:"payload"`
+	Public    string  `json:"public"`
+	CreatedAt string  `json:"created_at"`
+}
+
 type Actor struct {
 	ID         int
 	Login      string
@@ -41,15 +51,6 @@ type Commits struct {
 	URL      string
 }
 
-type Data struct {
-	ID        string  `json:"id"`
-	Type      string  `json:"type"`
-	Actor     Actor   `json:"actor"`
-	Repo      Repo    `json:"repo"`
-	PayLoad   Payload `json:"payload"`
-	Public    string  `json:"public"`
-	CreatedAt string  `json:"created_at"`
-}
 
 func main() {
 	fmt.Println("ユーザー名を入力してください")
@@ -69,7 +70,6 @@ func main() {
 		fmt.Println("DROW")
 		fmt.Printf("MyCommits: %d\nPlayer Commits: %d", player1, player2)
 	}
-
 }
 
 // commitCount is counts the number of commits .

@@ -10,20 +10,6 @@ import (
 	"time"
 )
 
-type Actor struct {
-	ID         int
-	Login      string
-	GravatarID string
-	URL        string
-	AvatarURL  string
-}
-
-type Repo struct {
-	ID   int
-	Name string
-	URL  string `json:"url"`
-}
-
 type Payload struct {
 	PushID       int
 	Size         int
@@ -42,12 +28,8 @@ type Commits struct {
 }
 
 type Data struct {
-	ID        string  `json:"id"`
 	Type      string  `json:"type"`
-	Actor     Actor   `json:"actor"`
-	Repo      Repo    `json:"repo"`
 	PayLoad   Payload `json:"payload"`
-	Public    string  `json:"public"`
 	CreatedAt string  `json:"created_at"`
 }
 

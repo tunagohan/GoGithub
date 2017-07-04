@@ -52,39 +52,43 @@ type Data struct {
 }
 
 func main() {
-	fmt.Print("UserName >>> ")
-	ownerName := getWord() + "/events"
-	url := "https://api.github.com/users/" + ownerName
-	req, _ := http.NewRequest("GET", url, nil)
-	cl := new(http.Client)
-	resp, _ := cl.Do(req)
-	defer resp.Body.Close()
+	fmt.Print("UserName: ")
+	player := commitCount()
+	fmt.Println(player)
+}
 
+func commitCount() (commitTotal int) {
+	player := getUserName() + "/events"
+	url := "https://api.github.com/users/" + player
+	req, _ := http.NewRequest("GET", url, nil)
+	client := new(http.Client)
+	resp, _ := client.Do(req)
+	defer resp.Body.Close()
 	dec := json.NewDecoder(resp.Body)
 	var d []Data
 	dec.Decode(&d)
 	var count = 0
 	for _, json := range d {
-		// 日付の文字列をパースする
+		// 日付文字列パース
 		var ts = strings.Replace(json.CreatedAt, "T", " ", 1)
 		ts = strings.Replace(ts, "Z", " UTC", 1)
-		// UTCをJSTに置換する
+		// JST置換
 		t, _ := time.Parse("2006-01-02 15:04:05 MST", ts)
 		jst := time.FixedZone("Asia/Tokyo", 9*60*60)
 		tJst := t.In(jst)
-		// 今日の日付とパースした日付を比較する
+		// 日付比較
 		nowJst := time.Now()
 		if tJst.Format("2006-01-02") == nowJst.Format("2006-01-02") &&
 			json.Type == "PushEvent" {
 			count += len(json.PayLoad.Commits)
 		}
 	}
-	fmt.Println(count)
+	return count
 }
 
-func getWord() (stringReturned string) {
-	sc := bufio.NewScanner(os.Stdin)
-	sc.Scan()
-	stringReturned = sc.Text()
+func getUserName() (stringReturned string) {
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	stringReturned = scanner.Text()
 	return
 }
